@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { VIDEO_API } from '../utils/Constant'
 import VideoCards from './VideoCards'
+import { Link } from 'react-router-dom'
+import { Addvideocard } from './VideoCards'
 
 
 
@@ -18,10 +20,17 @@ const VideoContainer = () => {
     setVideos(data.items)
   }
   return (
-    <div>
-      <VideoCards info={Videos[0]} />
+    <div className="flex flex-wrap">
+      {/* <VideoCards info={Videos[0]}/> */}
+      {Videos[0] && <Addvideocard info={Videos[0]}/>}
+
+      {Videos.map((videolist) => (
+        <Link to={"/watch?v="+videolist.id}>
+          <VideoCards key={videolist.id} info={videolist} />
+         </Link>
+      ))}
     </div>
-  )
+  );
 }
 
 export default VideoContainer
